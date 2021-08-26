@@ -1,0 +1,43 @@
+#{extends 'main-admin.html' /}
+#{set title:'Listagem de Alunos' /}
+#{set pageTitle:'Listagem de Alunos' /}
+
+<div class="card card-primary card-outline">
+  <div class="card-header">
+    <h3 class="card-title">Alunos</h3>
+  </div>
+  <!-- /.card-header -->
+  <!-- form start -->  
+    <div class="card-body">    
+		<table class="table table-striped">
+		  <thead>
+		    <tr>
+		      <th style="width: 10px">#</th>
+		      <th>Nome</th>
+		      <th>CPF</th>
+		      <th>Data de Nascimento</th>
+		      <th>Curso</th>      
+		      <th>Opções</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  #{list items:alunos, as: 'aluno'} 
+		  <tr>
+		  	<td>${aluno_index}</td>
+		    <td>${aluno.nome}</td>    
+		    <td>${aluno.cpf}</td>
+		    <td>${aluno?.dataNascimento?.format("dd/MM/yyyy")}</td>
+		    <td>${aluno?.curso?.nome}</td>
+		    <td>
+		    	<a href="@{Alunos.editar(aluno.id)}">Editar</a>
+		    	<a href="@{Alunos.remover(aluno.id)}">Remover</a>
+		    </td>
+		  </tr>
+		  #{/list}
+		  </tbody>
+		</table>
+	</div>
+	<div class="card-footer">
+      <a href="@{Alunos.form}" class="btn btn-info">Cadastrar novo aluno</a>
+    </div>
+</div>	

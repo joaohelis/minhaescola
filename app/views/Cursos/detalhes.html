@@ -1,0 +1,39 @@
+#{extends session.get("nomeArquivoMain") /}
+
+#{set title:'Detalhes de Curso' /}
+#{set pageTitle:'Detalhes de Curso' /}
+
+<div class="card card-primary card-outline">
+  <div class="card-header">
+    <h3 class="card-title">Detalhes de Curso</h3>
+  </div>
+  <!-- /.card-header -->
+  <!-- form start -->  
+    <div class="card-body">
+    	
+    	<h3>Curso: ${curso.nome}</h3>
+    	
+    	<br>
+        <h5>Alunos Matriculados</h5>
+		<table class="table table-striped">
+		  <thead>
+		    <tr>
+		      <th style="width: 10px">#</th>
+		      <th>Nome</th>
+		      <th>CPF</th>
+		      <th>Data de Nascimento</th>		      
+		    </tr>
+		  </thead>
+		  <tbody>
+		  #{list items:curso.matriculas, as: 'mat'} 
+		  <tr>
+		  	<td>${mat_index}</td>
+		    <td>${mat.aluno.nome}</td>    
+		    <td>${mat.aluno.cpf}</td>
+		    <td>${mat.aluno?.dataNascimento?.format("dd/MM/yyyy")}</td>		    
+		  </tr>
+		  #{/list}
+		  </tbody>
+		</table>
+	</div>	
+</div>	

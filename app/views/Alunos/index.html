@@ -1,0 +1,23 @@
+#{extends 'main-aluno.html' /}
+#{set title:'Sistema de Controle Acadêmico' /}
+
+#{set pageTitle:'Sistema de Controle Acadêmico' /}
+
+<div class="row">
+  <!-- ./col -->
+  <div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-success">
+      <div class="inner">
+        <h3>${totalCursos}<sup style="font-size: 20px"></sup></h3>
+
+        <p>Cursos</p>
+      </div>
+      <div class="icon">
+        <i class="fas fa-graduation-cap"></i>
+      </div>
+      <a href="@{Cursos.listar}" class="small-box-footer">Mais informações <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>  
+  <!-- ./col -->
+</div>

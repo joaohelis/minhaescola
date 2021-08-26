@@ -1,0 +1,58 @@
+#{extends session.get("nomeArquivoMain") /}
+
+#{set title:'Listagem de Cursos' /}
+#{set pageTitle:'Listagem de Cursos' /}
+
+<div class="card card-primary card-outline">
+  <div class="card-header">
+    <h3 class="card-title">Cursos</h3>
+  </div>
+  <!-- /.card-header -->
+  <!-- form start -->  
+    <div class="card-body">    
+		<table class="table table-striped">
+		  <thead>
+		    <tr>
+		      <th style="width: 10px">#</th>
+		      <th>Nome</th>		         
+		      <th>Opções</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  #{list items:cursos, as: 'curso'} 
+		  <tr>
+		  	<td>${curso_index}</td>
+		    <td>${curso.nome}</td>    		    
+		    <td>
+		    	<a href="@{Cursos.detalhes(curso.id)}">Detalhes</a>
+		    	
+		    	#{if session.get('tipoUsuario').equals("ALUNO")}
+		    	
+		    	#{if !curso.verificarAlunoMatriculado(session.get("usuarioID"))}
+		    	
+		    	<a class="btn btn-primary" 
+		    		href="@{Cursos.matricularAluno(curso.id)}">Realizar Matrícula</a>
+		    	#{/if}
+		    	#{else}
+		    	ALUNO JÁ MATRICULADO - <a class="btn btn-danger" 
+		    		href="@{Cursos.desmatricularAluno(curso.id)}">Excluir Matrícula</a>
+		    	#{/else}
+		    	
+		    	#{/if}
+		    	
+		    	#{if session.get('tipoUsuario').equals("ADMIN")}		    			    		    			    
+		    	<a href="@{Cursos.editar(curso.id)}">Editar</a>
+		    	<a href="@{Cursos.remover(curso.id)}">Remover</a>
+		    	#{/if}
+		    	
+		    			    	
+		    </td>
+		  </tr>
+		  #{/list}
+		  </tbody>
+		</table>
+	</div>
+	<div class="card-footer">
+      <a href="@{Cursos.form}" class="btn btn-info">Cadastrar novo curso</a>
+    </div>
+</div>	

@@ -1,0 +1,82 @@
+#{extends 'main-admin.html' /}
+#{set title:'Cadastro de Aluno' /}
+
+%{
+	String pageTitle = (aluno?.id)? "Edição de Aluno" : "Cadastro de Aluno";
+%}
+
+#{set pageTitle:pageTitle /}
+
+<div class="card card-primary card-outline">
+  <div class="card-header">
+    <h3 class="card-title">Formulário de Aluno</h3>
+  </div>
+  <!-- /.card-header -->
+  <!-- form start -->  
+  <div class="card-body">
+    <form action="@{Alunos.salvar}" method="post" enctype="multipart/form-data" >     
+	<input type="hidden" name="aluno.id" value="${aluno?.id}">
+	
+	<div class="form-group">
+      <label for="nome">Nome</label>
+      <input id="nome" type="text" name="aluno.nome" class="form-control" placeholder="Nome" value="${aluno?.nome}">
+      <span class="error-validacao">#{error 'aluno.nome' /}</span><br>        
+    </div>        
+    
+    <div class="form-group">
+      <label for="cpf">CPF</label>
+      <input id="cpf" type="text" name="aluno.cpf" class="form-control" placeholder="CPF" value="${aluno?.cpf}">
+      <span class="error-validacao">#{error 'aluno.cpf' /}</span><br>        
+    </div>
+    
+    <div class="form-group">
+      <label for="dataNascimento">Data de Nascimento</label>
+      <input id="dataNascimento" type="date" name="aluno.dataNascimento" class="form-control" placeholder="Data de Nascimento" value="${aluno?.dataNascimento?.format('YYYY-MM-dd')}">
+      <span class="error-validacao">#{error 'aluno.dataNascimento' /}</span><br>        
+    </div>
+    
+    <div class="form-group">
+      <label for="foto">Selecione a foto para o aluno(a)</label>
+      <div class="input-group">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="foto" name="aluno.foto">
+          <label class="custom-file-label" for="exampleInputFile">Selecione a foto</label>
+        </div>        
+      </div>
+    </div>	
+	
+	#{if aluno?.foto}
+		<img width="50px" alt="" src="@{Alunos.renderFotoAluno(aluno.id)}"><br>
+	#{/if}
+	
+	<div class="form-group">
+      <label>Curso</label>
+      <select class="form-control" name="aluno.curso.id">
+      	<option value="">---</option>
+      	#{list items:cursos, as: 'curso'}
+			<option value="${curso.id}" #{if curso.id == aluno?.curso?.id} selected #{/if} >${curso.nome}</option>
+		#{/list}        
+      </select>
+      <span class="error-validacao">#{error 'aluno.curso' /}</span><br>
+    </div>	
+
+    <div class="form-group">
+      <label for="email">E-mail</label>
+      <input id="email" type="text" name="aluno.email" class="form-control" placeholder="E-mail" value="${aluno?.email}">
+      <span class="error-validacao">#{error 'aluno.email' /}</span><br>        
+    </div>
+    
+    <div class="form-group">
+      <label for="senha">Senha</label>
+      <input id="senha" type="password" name="aluno.senha" class="form-control" placeholder="E-mail" value="${aluno?.senha}">
+      <span class="error-validacao">#{error 'aluno.senha' /}</span><br>        
+    </div>
+    
+    </div>
+    <!-- /.card-body -->
+
+    <div class="card-footer">
+      <input type="submit" class="btn btn-info" value="Cadastrar">
+    </div>
+  </form>
+</div>
