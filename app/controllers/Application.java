@@ -6,6 +6,7 @@ import play.mvc.*;
 import java.util.*;
 
 import annotations.AdministradorAutenticado;
+import annotations.AlunoAutenticado;
 import interceptors.Seguranca;
 import models.*;
 
@@ -16,7 +17,8 @@ public class Application extends Controller {
 		renderTemplate("errors/401.html");
 	}
 		
-	// página inicial do sistema	
+	// página inicial do sistema
+	@AlunoAutenticado
     public static void index() {
     	if(session.isEmpty()) {
     		Application.login();
